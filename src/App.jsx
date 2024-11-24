@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Search from './components/Search';
 import TodoList from './components/TodoList';
@@ -9,14 +9,22 @@ import {
   toggleTodoStatus,
 } from './utils/todoUtils';
 function App() {
+  useEffect(() => {
+    const storedTodos = localStorage.getItem('todos');
+    setTodos(JSON.parse(storedTodos) || []);
+  }, []);
   const [todos, setTodos] = useState([]);
   let lastId = todos.length === 0 ? 1 : todos[todos.length - 1].id + 1;
   function addTodo(todo) {
-    setTodos([...todos, { id: lastId, label: todo, completed: false }]);
+    const newTodo = [...todos, { id: lastId, label: todo, completed: false }];
+    setTodos(newTodo);
+    localStorage.setItem('todos', JSON.stringify(newTodo));
     lastId++;
   }
   const toggleCompleted = (id) => {
-    setTodos(toggleTodoStatus(todos, id));
+    const newTodo = toggleTodoStatus(todos, id);
+    setTodos(newTodo);
+    localStorage.setItem('todos', JSON.stringify(newTodo));
   };
   const completedTodos = getCompletedTodo(todos);
   const uncompletedTodos = getUncompletedTodo(todos);
