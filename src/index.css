@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.shadow-inset {
+  box-shadow: inset 5px 5px 10px #2e353e, inset -5px -5px 10px #424b58;
+}
+.shadow-outset {
+  box-shadow: 5px 5px 10px #2e353e, -5px -5px 10px #424b58;
+}
