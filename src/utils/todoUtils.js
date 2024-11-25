@@ -6,7 +6,9 @@ export const getUncompletedTodo = function (todos) {
 };
 export const toggleTodoStatus = function (todos, id) {
   return todos.map((todo) => {
-    if (todo.id === id) todo.completed = !todo.completed;
+    if (todo.id === id) {
+      todo = { ...todo, completed: !todo.completed };
+    }
     return todo;
   });
 };

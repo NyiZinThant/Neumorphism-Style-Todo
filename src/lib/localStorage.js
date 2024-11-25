@@ -7,3 +7,7 @@ export const getStoredTodos = function () {
     return [];
   }
 };
+
+export const storeTodos = function (newTodos) {
+  localStorage.setItem('todos', JSON.stringify(newTodos));
+};
