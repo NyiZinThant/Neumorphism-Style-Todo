@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import Search from './components/Search';
+import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 import TodoLabel from './components/TodoLabel';
 import {
@@ -30,7 +30,7 @@ function App() {
   const uncompletedTodos = getUncompletedTodo(todos);
   return (
     <div className="bg-primary w-screen min-h-screen p-7 px-36 flex flex-col gap-12">
-      <Search addTodo={addTodo} />
+      <TodoForm addTodo={addTodo} />
       {uncompletedTodos.length !== 0 && (
         <TodoList
           todos={uncompletedTodos}

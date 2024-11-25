@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-export default function Search({ addTodo }) {
+export default function TodoForm({ addTodo }) {
   const searchInputRef = useRef(null);
   return (
     <div className="w-full flex justify-center">
