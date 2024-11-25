@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 import TodoLabel from './components/TodoLabel';
@@ -8,12 +7,9 @@ import {
   getUncompletedTodo,
   toggleTodoStatus,
 } from './utils/todoUtils';
+import { getStoredTodos } from './lib/localStorage';
 function App() {
-  useEffect(() => {
-    const storedTodos = localStorage.getItem('todos');
-    setTodos(JSON.parse(storedTodos) || []);
-  }, []);
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(getStoredTodos);
   let lastId = todos.length === 0 ? 1 : todos[todos.length - 1].id + 1;
   function addTodo(todo) {
     const newTodo = [...todos, { id: lastId, label: todo, completed: false }];
