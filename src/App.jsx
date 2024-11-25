@@ -7,20 +7,20 @@ import {
   getUncompletedTodo,
   toggleTodoStatus,
 } from './utils/todoUtils';
-import { getStoredTodos } from './lib/localStorage';
+import { getStoredTodos, storeTodos } from './lib/localStorage';
+import { v4 as uuidv4 } from 'uuid';
 function App() {
   const [todos, setTodos] = useState(getStoredTodos);
-  let lastId = todos.length === 0 ? 1 : todos[todos.length - 1].id + 1;
   function addTodo(todo) {
-    const newTodo = [...todos, { id: lastId, label: todo, completed: false }];
-    setTodos(newTodo);
-    localStorage.setItem('todos', JSON.stringify(newTodo));
-    lastId++;
+    const newId = uuidv4();
+    const newTodos = [...todos, { id: newId, label: todo, completed: false }];
+    setTodos(newTodos);
+    storeTodos(newTodos);
   }
   const toggleCompleted = (id) => {
-    const newTodo = toggleTodoStatus(todos, id);
-    setTodos(newTodo);
-    localStorage.setItem('todos', JSON.stringify(newTodo));
+    const newTodos = toggleTodoStatus(todos, id);
+    setTodos(newTodos);
+    storeTodos(newTodos);
   };
   const completedTodos = getCompletedTodo(todos);
   const uncompletedTodos = getUncompletedTodo(todos);
