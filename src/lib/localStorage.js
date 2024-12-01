@@ -9,5 +9,9 @@ export const getStoredTodos = function () {
 };
 
 export const storeTodos = function (newTodos) {
+  if (!newTodos) {
+    console.error('New todo is empty');
+    return;
+  }
   localStorage.setItem('todos', JSON.stringify(newTodos));
 };
