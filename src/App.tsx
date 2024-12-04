@@ -9,16 +9,17 @@ import {
 } from './utils/todoUtils';
 import { getStoredTodos, storeTodos } from './lib/localStorage';
 import { v4 as uuidv4 } from 'uuid';
+import Todo from './models/todo';
 function App() {
-  const [todos, setTodos] = useState(getStoredTodos);
-  function addTodo(todo) {
+  const [todos, setTodos] = useState<Todo[]>(getStoredTodos);
+  function addTodo(label: string) {
     const newId = uuidv4();
-    const newTodos = [...todos, { id: newId, label: todo, completed: false }];
+    const newTodos: Todo[] = [...todos, { id: newId, label, completed: false }];
     setTodos(newTodos);
     storeTodos(newTodos);
   }
-  const toggleCompleted = (id) => {
-    const newTodos = toggleTodoStatus(todos, id);
+  const toggleCompleted = (id: string) => {
+    const newTodos: Todo[] = toggleTodoStatus(todos, id);
     setTodos(newTodos);
     storeTodos(newTodos);
   };

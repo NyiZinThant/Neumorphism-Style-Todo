@@ -1,5 +1,7 @@
-export const getStoredTodos = function () {
-  const storedTodos = localStorage.getItem('todos');
+import Todo from '../models/todo';
+
+export const getStoredTodos = function (): Todo[] {
+  const storedTodos = localStorage.getItem('todos') || '';
   try {
     return JSON.parse(storedTodos) || [];
   } catch (e) {
@@ -8,7 +10,7 @@ export const getStoredTodos = function () {
   }
 };
 
-export const storeTodos = function (newTodos) {
+export const storeTodos = function (newTodos: Todo[]): void {
   if (!newTodos) {
     console.error('New todo is empty');
     return;

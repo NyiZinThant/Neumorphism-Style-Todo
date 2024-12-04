@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { getStoredTodos, storeTodos } from '../../src/lib/localStorage';
+import Todo from '../../src/models/todo';
 
 describe('getStoredTodos', () => {
   afterEach(() => {
@@ -21,11 +22,12 @@ describe('storeTodos', () => {
   });
   it('should return undefined with console.error if new todo is empty', () => {
     const errorSpy = vi.spyOn(console, 'error');
+    // @ts-expect-error expected 1 argument
     storeTodos();
     expect(errorSpy).toHaveBeenCalled();
   });
   it('should store new todo in localStorage', () => {
-    const todos = [{ id: 1, label: 'task 1', completed: false }];
+    const todos: Todo[] = [{ id: '1', label: 'task 1', completed: false }];
     storeTodos(todos);
     expect(getStoredTodos()).toEqual(todos);
   });

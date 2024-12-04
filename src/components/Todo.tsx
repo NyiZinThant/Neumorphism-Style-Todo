@@ -1,6 +1,16 @@
 import CheckBox from './CheckBox';
+import TodoType from '../models/todo';
 
-export default function Todo({ todo, toggleCompleted, isShadowInset }) {
+type TodoProp = {
+  todo: TodoType;
+  toggleCompleted: Function;
+  isShadowInset: boolean;
+};
+export default function Todo({
+  todo,
+  toggleCompleted,
+  isShadowInset,
+}: TodoProp) {
   return (
     <div
       className={

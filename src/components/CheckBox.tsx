@@ -1,7 +1,15 @@
 import { useRef } from 'react';
-
-export default function CheckBox({ isChecked, toggleChecked, id }) {
-  const checkboxRef = useRef(null);
+type CheckBoxProp = {
+  isChecked: boolean;
+  toggleChecked: Function;
+  id: string;
+};
+export default function CheckBox({
+  isChecked,
+  toggleChecked,
+  id,
+}: CheckBoxProp) {
+  const checkboxRef = useRef<HTMLInputElement | null>(null);
   const checkBoxClass =
     (isChecked ? 'bg-secondary' : 'bg-transparent') +
     ' border-2 border-secondary rounded-full w-4 h-4';
