@@ -1,19 +1,10 @@
 import Todo from '../models/todo';
-import { toggleTodoStatus } from '../utils/todoUtils';
 import axios from 'axios';
-
+const url = import.meta.env.VITE_API_URL;
+// Fetch all todos from API
 export const getTodo = async function (): Promise<Todo[]> {
   try {
-    const url = import.meta.env.VITE_API_URL;
-    const response = await axios.get<Todo[]>(`${url}/api/v1/todos`, {
-      responseType: 'json',
-      transformResponse: (body) => body,
-    });
-    console.log(`${url}/api/v1/todos`, response);
-
-    if (response.headers['Content-Type'] !== 'application/json') {
-      throw new Error('Wrong Response Format');
-    }
+    const response = await axios.get<Todo[]>(`${url}/api/v1/todos`);
     const todos: Todo[] = response.data;
     return todos;
   } catch (error) {
@@ -22,16 +13,40 @@ export const getTodo = async function (): Promise<Todo[]> {
     } else {
       console.error(error);
     }
-  } finally {
     return [];
   }
 };
-// export const addTodo = async function (label: string): Promise<Todo[]> {};
-// export const toggleCompleted = async (id: string): Promise<Todo[]> => {
-//   await new Promise((resolve) => setTimeout(resolve, 0));
-//   const newTodos: Todo[] = toggleTodoStatus(todos, id);
-//   todos = newTodos;
-//   storeTodos(newTodos);
-//   return todos;
-// };
-// let todos: Todo[] = getStoredTodos();
+// Adds a new todo to the API
+export const addTodo = async function (label: string): Promise<Todo[]> {
+  try {
+    await axios.post(`${url}/api/v1/todos`, { label });
+    return await getTodo();
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.code, error.message);
+    } else {
+      console.error(error);
+    }
+    return [];
+  }
+};
+// Updates the completion status of a specific todo item
+export const toggleCompleted = async (
+  id: string,
+  completed: boolean
+): Promise<Todo[]> => {
+  try {
+    await axios.patch(`${url}/api/v1/todos`, {
+      id,
+      completed: !completed,
+    });
+    return await getTodo();
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.code, error.message);
+    } else {
+      console.error(error);
+    }
+    return [];
+  }
+};

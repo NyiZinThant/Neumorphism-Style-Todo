@@ -2,12 +2,7 @@ import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 import TodoLabel from './components/TodoLabel';
 import { getCompletedTodo, getUncompletedTodo } from './utils/todoUtils';
-import {
-  addTodo,
-  getStoredTodos,
-  storeTodos,
-  toggleCompleted,
-} from './lib/localStorage';
+import { addTodo, toggleCompleted } from './api/todoApi';
 import Todo from './models/todo';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getTodo } from './api/todoApi';
@@ -25,7 +20,15 @@ function App() {
     },
   });
   const { mutateAsync: toggleCompletedMutation } = useMutation({
-    mutationFn: toggleCompleted,
+    mutationFn: async ({
+      id,
+      completed,
+    }: {
+      id: string;
+      completed: boolean;
+    }) => {
+      return await toggleCompleted(id, completed);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['todos'] });
     },

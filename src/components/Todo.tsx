@@ -20,7 +20,9 @@ export default function Todo({
     >
       <CheckBox
         isChecked={todo.completed}
-        toggleChecked={() => toggleCompletedMutation(todo.id)}
+        toggleChecked={() =>
+          toggleCompletedMutation({ id: todo.id, completed: todo.completed })
+        }
         id={todo.id}
       />
       <label
