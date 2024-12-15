@@ -10,13 +10,13 @@ import {
 } from './lib/localStorage';
 import Todo from './models/todo';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { getTodo } from './api/todoApi';
 function App() {
   const queryClient = useQueryClient();
   const { data: todos } = useQuery<Todo[]>({
-    queryFn: getStoredTodos,
+    queryFn: getTodo,
     queryKey: ['todos'],
   });
-  // const [todos, setTodos] = useState<Todo[]>(getStoredTodos);
 
   const { mutateAsync: addTodoMutation } = useMutation({
     mutationFn: addTodo,
