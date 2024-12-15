@@ -2,12 +2,12 @@ import TodoType from '../models/todo';
 import Todo from './Todo';
 type TodoListProp = {
   todos: TodoType[];
-  toggleCompleted: Function;
+  toggleCompletedMutation: Function;
   isShadowInset?: boolean;
 };
 export default function TodoList({
   todos,
-  toggleCompleted,
+  toggleCompletedMutation,
   isShadowInset = true,
 }: TodoListProp) {
   return (
@@ -15,7 +15,7 @@ export default function TodoList({
       {todos.map((todo) => (
         <Todo
           todo={todo}
-          toggleCompleted={toggleCompleted}
+          toggleCompletedMutation={toggleCompletedMutation}
           key={todo.id}
           isShadowInset={isShadowInset}
         />

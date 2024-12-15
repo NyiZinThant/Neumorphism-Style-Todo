@@ -3,12 +3,12 @@ import TodoType from '../models/todo';
 
 type TodoProp = {
   todo: TodoType;
-  toggleCompleted: Function;
+  toggleCompletedMutation: Function;
   isShadowInset: boolean;
 };
 export default function Todo({
   todo,
-  toggleCompleted,
+  toggleCompletedMutation,
   isShadowInset,
 }: TodoProp) {
   return (
@@ -20,7 +20,7 @@ export default function Todo({
     >
       <CheckBox
         isChecked={todo.completed}
-        toggleChecked={() => toggleCompleted(todo.id)}
+        toggleChecked={() => toggleCompletedMutation(todo.id)}
         id={todo.id}
       />
       <label

@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 type TodoFormProp = {
-  addTodo: Function;
+  addTodoMutation: Function;
 };
-export default function TodoForm({ addTodo }: TodoFormProp) {
+export default function TodoForm({ addTodoMutation }: TodoFormProp) {
   const searchInputRef = useRef<HTMLInputElement | null>(null);
   return (
     <div className="w-full flex justify-center">
@@ -16,7 +16,7 @@ export default function TodoForm({ addTodo }: TodoFormProp) {
           }
           const val = searchInputRef.current.value.trim();
           if (val.length < 1) return;
-          addTodo(val);
+          addTodoMutation(val);
           searchInputRef.current.value = '';
         }}
       >
