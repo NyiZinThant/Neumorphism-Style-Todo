@@ -15,7 +15,7 @@ export default function Todo({
     <div
       className={
         (isShadowInset ? 'shadow-inset' : 'shadow-outset') +
-        ' h-14 flex gap-4 items-center p-5 rounded-2xl'
+        ' min-h-14 flex gap-4 items-center px-5 p-3 rounded-2xl'
       }
     >
       <CheckBox
